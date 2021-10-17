@@ -39,10 +39,6 @@ export function Filter() {
             pathname: '/',
             search: "?" + filterParams.toString()
         });
-        // setName(filterParams.get('name'));
-        // setCategory(filterParams.get('name'));
-        // setRating(filterParams.get('name'));
-        // setYear(filterParams.get('name'));
     }
     let [movies, setMovies] = useState(MovieService.getMovies(filterParams.toString()));
     const setParams = () => {
