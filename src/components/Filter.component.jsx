@@ -1,6 +1,6 @@
-import React, { Fragment, useState, useRef } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Movie } from './Movie.component';
-import { MoviePrev } from './MoviePrev.component';
+import { MoviePrev } from './moviePrev/MoviePrev.component';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import MovieService from '../services/movie.service';
@@ -10,7 +10,6 @@ import Rating from '@mui/material/Rating';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { createBrowserHistory } from 'history';
-import { useSearchParams } from 'react-router-dom'
 import {
     BrowserRouter as Router,
     Switch,
@@ -20,33 +19,25 @@ import {
   } from "react-router-dom";
 
 
-export function Filter() {
+export function Filter({movies, toggleMovies}) {
     let history = createBrowserHistory();
     let filterParams = new URLSearchParams(history.location.search);
-    console.log(filterParams.get('name'))
+
     let [name, setName] = useState();
     let [category, setCategory] = useState(filterParams.get('category'));
     let [rating, setRating] = useState(parseInt(filterParams.get('rating'), 10));
-    let [year, setYear] = useState(filterParams.get('year')); 
+    let [year, setYear] = useState(filterParams.get('year'));
+
     let years = MovieService.getYears();
     let categories = CategoryService.getCategories();
     let match = useRouteMatch();
     
-    
-    console.log(history.location)
-    if (filterParams.toString() !== '') {
-        history.replace({
-            pathname: '/',
-            search: "?" + filterParams.toString()
-        });
-    }
-    let [movies, setMovies] = useState(MovieService.getMovies(filterParams.toString()));
     const setParams = () => {
         history.replace({
             pathname: '',
             search: "?" + filterParams.toString()
         });
-        setMovies(MovieService.getMovies(filterParams.toString()));
+        toggleMovies(filterParams);
     }
     
     const handleName = (event) => {
@@ -74,7 +65,7 @@ export function Filter() {
         setParams();
     }
 
-    const handleClear = () => {
+    const handleClean = () => {
         filterParams = new URLSearchParams('');
         history.replace({
             pathname: '/',
@@ -84,7 +75,7 @@ export function Filter() {
         setCategory('');
         setRating(0);
         setYear('');
-        setMovies(MovieService.getMovies());
+        toggleMovies(filterParams);
     }
     
     return (
@@ -133,19 +124,10 @@ export function Filter() {
                     </Grid>
                     <Grid item xs={12} md={2}>
                         <Box sx={{ minWidth: 120 }}>
-                            <Button variant="contained" onClick={handleClear}>Clear</Button>
+                            <Button variant="contained" onClick={handleClean}>Clean Filter</Button>
                         </Box>
                     </Grid>
-                                    
-                        {
-                            movies.map(movie => (
-                                <Grid item xs={12} md={3}>
-                                    <MoviePrev movie={movie}/>
-                                </Grid>
-                            ))
-                        }
-                    
-
+                        
                     <Switch>
                         <Route path={`${match}/movie/:movieId`}>
                             <Movie/>
