@@ -9,7 +9,7 @@ module.exports = {
                 movie => {
                     console.log(filterParams.get('name'))
                     
-                    let name = movie.name.toUpperCase().indexOf(filterParams.get('name').toUpperCase()) > -1;
+                    let name = movie.name.toUpperCase().indexOf(filterParams.get('name')?.toUpperCase()) > -1;
                     console.log(filterParams.get('name'))
                     if (filterParams.get('name') == null) {
                         name = true;
