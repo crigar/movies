@@ -7,17 +7,20 @@ module.exports = {
             
             movies = this.movies.filter(
                 movie => {
-                    let name = movie.name.indexOf(filterParams.get('name')) > -1;
+                    console.log(filterParams.get('name'))
+                    
+                    let name = movie.name.toUpperCase().indexOf(filterParams.get('name').toUpperCase()) > -1;
+                    console.log(filterParams.get('name'))
                     if (filterParams.get('name') == null) {
                         name = true;
                     }
                     let category = this.checkValueInMovie(filterParams.get('category'), movie.category);
                     let rating = this.checkValueInMovie(filterParams.get('rating'), movie.rating);
                     let year = this.checkValueInMovie(filterParams.get('year'), movie.year);
+                    console.log(name && rating && category && year)
                     return  name && rating && category && year;
                 }
             )
-            console.log(movies)
         } else {
             movies = this.movies;
         }
@@ -26,6 +29,12 @@ module.exports = {
 
     getYears() {
         return this.years
+    },
+
+    getMovie(movieId) {
+        for (const movie of this.movies) {
+            if (movieId == movie.id) return movie;
+        }
     },
 
     checkValueInMovie(paramValue, movieAttribute){
@@ -40,43 +49,66 @@ module.exports = {
     movies: [
         {
             id: 1,
-            name: 'Movie1',
-            category: 'category',
+            name: 'Venom',
+            category: 'Action',
             rating: 5,
-            year: '2020',
-            image: 'image',
+            year: '2018 ',
+            image: 'venom',
+            video: 'https://www.youtube.com/embed/-ezfi6FQ8Ds'
         },
         {
             id: 2,
-            name: 'Movie2',
-            category: 'Comedia',
+            name: 'After We Fell',
+            category: 'Drama',
             rating: 3,
-            year: '2020',
-            image: 'image',
+            year: '2021',
+            image: 'after',
+            video: 'https://www.youtube.com/embed/J-x5WLWoZpY'
         },
         {
             id: 3,
-            name: 'Movie3',
-            category: 'Aventuras',
+            name: 'Shang-Chi and the Legend of the Ten Rings',
+            category: 'Action',
             rating: 3,
             year: '2021',
-            image: 'image',
+            image: 'shang',
+            video: 'https://www.youtube.com/embed/8YjFbMbfXaQ'
         },
         {
             id: 4,
-            name: 'Movie4',
-            category: 'category',
+            name: 'No Time To Die',
+            category: 'Thriller',
             rating: 3,
             year: '2020',
-            image: 'image',
+            image: 'morir',
+            video: 'https://www.youtube.com/embed/BIhNsAtPbPI'
         },
         {
             id: 5,
-            name: 'Movie5',
-            category: 'category',
-            rating: 2,
-            year: '2020',
-            image: 'image',
+            name: 'Free guy',
+            category: 'Comedy',
+            rating: 4,
+            year: '2021',
+            image: 'free',
+            video: 'https://www.youtube.com/embed/X2m-08cOAbc'
+        },
+        {
+            id: 6,
+            name: 'The Addams Family',
+            category: 'Comedy',
+            rating: 3,
+            year: '2019',
+            image: 'adams',
+            video: 'https://www.youtube.com/embed/F7Ug863S8dQ'
+        },
+        {
+            id: 7,
+            name: 'Joker',
+            category: 'Drama',
+            rating: 5,
+            year: '2019',
+            image: 'joker',
+            video: 'https://www.youtube.com/embed/t433PEQGErc'
         },
     ]
 }

@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react';
-import { Movie } from './Movie.component';
 import { MoviePrev } from './moviePrev/MoviePrev.component';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -31,11 +30,10 @@ export function Filter({movies, toggleMovies}) {
     let years = MovieService.getYears();
     let categories = CategoryService.getCategories();
     let match = useRouteMatch();
-    
     const setParams = () => {
         history.replace({
             pathname: '',
-            search: "?" + filterParams.toString()
+            search: '?' + filterParams.toString()
         });
         toggleMovies(filterParams);
     }
@@ -81,9 +79,6 @@ export function Filter({movies, toggleMovies}) {
     return (
         <Fragment>
             <Grid container spacing={2} padding={5}>
-                    <Grid item xs={12} md={12}>
-                        <h1>Movies</h1>
-                    </Grid>
                     <Grid item xs={12} md={3}>
                         <Box sx={{ minWidth: 120 }}>
                             <TextField  label="Name" onChange={handleName} value={name} />
@@ -127,12 +122,6 @@ export function Filter({movies, toggleMovies}) {
                             <Button variant="contained" onClick={handleClean}>Clean Filter</Button>
                         </Box>
                     </Grid>
-                        
-                    <Switch>
-                        <Route path={`${match}/movie/:movieId`}>
-                            <Movie/>
-                        </Route>
-                    </Switch>
             </Grid>
         </Fragment>
     );

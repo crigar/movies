@@ -4,15 +4,17 @@ module.exports = {
         return this.categories;
     },
     categories: [
-        'Acción',
-        'Aventuras',
-        'Ciencia Ficción',
-        'Comedia',
-        'No- Ficción / documental',
+        'Action',
+        'Adventure',
+        'Science fiction',
+        'Comedy',
+        'Non-Fiction / documentary',
         'Drama',
-        'Fantasía',
+        'Fantasy',
         'Musical',
         'Suspense',
-        'Terror'
+        'Terror',
+        'Thriller',
+        'Animation'
     ]
 }

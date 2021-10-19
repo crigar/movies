@@ -13,7 +13,7 @@ function App() {
     <Router>
       <Switch>
         <Router path="/">
-          <Landing/>
+          <Landing className="app-props"/>
         </Router>
       </Switch>
     </Router>

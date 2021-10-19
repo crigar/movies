@@ -6,17 +6,19 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import MoviePrevCss from './MoviePrev.module.scss';
 import Rating from '@mui/material/Rating';
-import logo from './../../assets/images/forest.jpg'
-const bull = (
-    <Box
-      component="span"
-      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-      •
-    </Box>
-  );
+import { Movie } from './../movie/Movie.component';
+import {
+  useRouteMatch,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 export function MoviePrev({ movie }) {
+
+    let { path, url } = useRouteMatch();
+    let logo = './../../assets/images/' + movie.image + '.jpg';
+
     return (
         <Fragment>
           <Card variant="outlined">
@@ -38,7 +40,9 @@ export function MoviePrev({ movie }) {
               </div>
             </CardContent>
             <CardActions className={MoviePrevCss.moviePrevContainer}>
-                <Button variant="contained">See Movie</Button>
+                <Button variant="contained" >
+                  <Link to={`movies/${movie.id}`} >Watch Movie</Link>
+                </Button>
             </CardActions>
           </Card>
         </Fragment>
