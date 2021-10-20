@@ -8,12 +8,12 @@ import {
 } from "react-router-dom";
 import { Landing } from './components/Landing.component';
 
-function App() {
+function App({store}) {
   return (
     <Router>
       <Switch>
         <Router path="/">
-          <Landing className="app-props"/>
+          <Landing className="app-props" store={store} />
         </Router>
       </Switch>
     </Router>

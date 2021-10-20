@@ -9,6 +9,8 @@ import Rating from '@mui/material/Rating';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { createBrowserHistory } from 'history';
+import { useSelector, useDispatch } from 'react-redux';
+import { addFilterParam } from './../app/actions/index';
 import {
     BrowserRouter as Router,
     Switch,
@@ -18,7 +20,7 @@ import {
   } from "react-router-dom";
 
 
-export function Filter({movies, toggleMovies}) {
+export function Filter({store, toggleMovies}) {
     let history = createBrowserHistory();
     let filterParams = new URLSearchParams(history.location.search);
 
@@ -29,7 +31,9 @@ export function Filter({movies, toggleMovies}) {
 
     let years = MovieService.getYears();
     let categories = CategoryService.getCategories();
-    let match = useRouteMatch();
+    const dispatch = useDispatch();
+    console.log(store)
+
     const setParams = () => {
         history.replace({
             pathname: '',
@@ -43,24 +47,33 @@ export function Filter({movies, toggleMovies}) {
         filterParams.set('name',value );
         setName(value);
         setParams();
+        
+        store.dispatch(addFilterParam({ name: 'name', value }));
+        console.log(store.getState())
     }
     const handleCategory = (event) => {
         let value = event.target.lastChild.data;
         filterParams.set('category', value);
         setCategory(value);
         setParams();
+        store.dispatch(addFilterParam({ name: 'category', value }));
+        console.log(store.getState())
     }
     const handleRating = (event) => {
         let value = parseInt(event.target.value);
         filterParams.set('rating', value);
         setRating(value);
         setParams();
+        store.dispatch(addFilterParam({ name: 'rating', value }));
+        console.log(store.getState())
     }
     const handleYear = (event) => {
         let value = event.target.lastChild?.data;
         filterParams.set('year', value);
         setYear(value);
         setParams();
+        store.dispatch(addFilterParam({ name: 'year', value }));
+        console.log(store.getState())
     }
 
     const handleClean = () => {
@@ -74,6 +87,7 @@ export function Filter({movies, toggleMovies}) {
         setRating(0);
         setYear('');
         toggleMovies(filterParams);
+        
     }
     
     return (

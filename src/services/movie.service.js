@@ -7,17 +7,13 @@ module.exports = {
             
             movies = this.movies.filter(
                 movie => {
-                    console.log(filterParams.get('name'))
-                    
-                    let name = movie.name.toUpperCase().indexOf(filterParams.get('name').toUpperCase()) > -1;
-                    console.log(filterParams.get('name'))
+                    let name = movie.name?.toUpperCase().indexOf(filterParams.get('name')?.toUpperCase()) > -1;
                     if (filterParams.get('name') == null) {
                         name = true;
                     }
                     let category = this.checkValueInMovie(filterParams.get('category'), movie.category);
                     let rating = this.checkValueInMovie(filterParams.get('rating'), movie.rating);
                     let year = this.checkValueInMovie(filterParams.get('year'), movie.year);
-                    console.log(name && rating && category && year)
                     return  name && rating && category && year;
                 }
             )

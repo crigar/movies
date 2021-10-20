@@ -14,7 +14,7 @@ import {
     Redirect,
     Route
   } from "react-router-dom";
-export function Landing() {
+export function Landing({store}) {
     let history = createBrowserHistory();
     let match = useRouteMatch();
     let initialParams = new URLSearchParams(history.location.search);
@@ -43,7 +43,7 @@ export function Landing() {
 
                 <Switch>
                     <Route exact path="/">
-                        <Filter movies={movies} toggleMovies={toggleMovies}/>
+                        <Filter movies={movies} toggleMovies={toggleMovies} store={store} />
                         <Movies movies={movies}></Movies>
                     </Route>
                     <Route path="/movies/:movieId">
