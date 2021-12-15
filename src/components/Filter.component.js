@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import { createBrowserHistory } from 'history';
 import {
     BrowserRouter as Router,
     Switch,
@@ -18,8 +19,8 @@ import {
 
 
 export function Filter({movies, toggleMovies}) {
-    // let history = createMemoryHistory();
-    let filterParams = { };
+    let history = createBrowserHistory();
+    let filterParams = new URLSearchParams(history.location.search);
 
     let [name, setName] = useState();
     let [category, setCategory] = useState(filterParams.get('category'));
@@ -30,21 +31,22 @@ export function Filter({movies, toggleMovies}) {
     let categories = CategoryService.getCategories();
     let match = useRouteMatch();
     const setParams = () => {
-        // history.replace({
-        //     pathname: '',
-        //     search: '?' + filterParams.toString()
-        // });
+        history.replace({
+            pathname: '',
+            search: '?' + filterParams.toString()
+        });
         toggleMovies(filterParams);
     }
     
     const handleName = (event) => {
-        let value = event.target.value;
+        let value = event.target.value ? event.target.value : '';
         filterParams.set('name',value );
         setName(value);
         setParams();
     }
     const handleCategory = (event) => {
-        let value = event.target.lastChild.data;
+        let value = event.target.lastChild.data ? event.target.lastChild.data : '';
+        console.log(value)
         filterParams.set('category', value);
         setCategory(value);
         setParams();
@@ -64,10 +66,10 @@ export function Filter({movies, toggleMovies}) {
 
     const handleClean = () => {
         filterParams = new URLSearchParams('');
-        // history.replace({
-        //     pathname: '/',
-        //     search: ''
-        // });
+        history.replace({
+            pathname: '/',
+            search: ''
+        });
         setName('');
         setCategory('');
         setRating(0);

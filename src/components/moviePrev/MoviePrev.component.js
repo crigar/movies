@@ -14,7 +14,7 @@ import {
   Link
 } from "react-router-dom";
 
-export function MoviePrev({ movie }) {
+export function MoviePrev({ movie, showWatchMovie }) {
 
     let { path, url } = useRouteMatch();
     let logo = './../../assets/images/' + movie.image + '.jpg';
@@ -40,9 +40,13 @@ export function MoviePrev({ movie }) {
               </div>
             </CardContent>
             <CardActions className={MoviePrevCss.moviePrevContainer}>
-                <Button variant="contained" >
-                  <Link to={`movies/${movie.id}`} >Watch Movie</Link>
-                </Button>
+              {
+                showWatchMovie && (
+                  <Button variant="contained" >
+                      <Link to={`movies/${movie.id}`} >Watch Movie</Link>
+                  </Button>
+                  )
+              }
             </CardActions>
           </Card>
         </Fragment>

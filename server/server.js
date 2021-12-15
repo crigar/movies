@@ -3,7 +3,7 @@ import path from 'path';
 import express from 'express';
 
 const app = express();
-app.use('^/$', initialRenderRoutes);
+app.use('^/#/$', initialRenderRoutes);
 
 app.use(express.static(path.resolve(__dirname, '../build')));
 
