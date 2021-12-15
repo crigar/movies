@@ -1,4 +1,4 @@
-module.exports = {
+export const CategoryService = {
     
     getCategories() {
         return this.categories;
@@ -18,3 +18,6 @@ module.exports = {
         'Animation'
     ]
 }
+
+
+

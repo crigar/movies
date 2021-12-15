@@ -4,9 +4,8 @@ import { Movies } from './movies/Movies.component';
 import { Movie } from './movie/Movie.component';
 import { NoMatch } from './NoMatch.component';
 import { About } from './about/About.component';
-import MovieService from '../services/movie.service';
-import { createBrowserHistory } from 'history';
-import Grid from '@mui/material/Grid';
+import {MovieService} from '../services/movie.service';
+import {Grid} from '@mui/material';
 import {
     HashRouter as Router,
     useRouteMatch,
@@ -15,16 +14,16 @@ import {
     Route
   } from "react-router-dom";
 export function Landing() {
-    let history = createBrowserHistory();
+    // let history = createMemoryHistory();
     let match = useRouteMatch();
-    let initialParams = new URLSearchParams(history.location.search);
+    let initialParams = {};
     
 
     if (initialParams.toString() !== '') {
-        history.replace({
-            pathname: '/',
-            search: "?" + initialParams.toString()
-        });
+        // history.replace({
+        //     pathname: '/',
+        //     search: "?" + initialParams.toString()
+        // });
     }
     let [movies, setMovies] = useState(MovieService.getMovies(initialParams.toString()));
 

@@ -1,4 +1,4 @@
-module.exports = {
+export const MovieService = {
     
     getMovies(filterParams = undefined) {
         let movies;
@@ -112,4 +112,5 @@ module.exports = {
         },
     ]
 }
+
 

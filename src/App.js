@@ -10,13 +10,11 @@ import { Landing } from './components/Landing.component';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Router path="/">
-          <Landing className="app-props"/>
-        </Router>
-      </Switch>
-    </Router>
+    <Fragment >
+                 <h1 >
+                 ssr works
+                 </h1>
+                        </Fragment>
     
   );
 }

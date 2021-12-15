@@ -2,13 +2,12 @@ import React, { Fragment, useState } from 'react';
 import { MoviePrev } from './moviePrev/MoviePrev.component';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import MovieService from '../services/movie.service';
-import CategoryService from '../services/category.service';
+import {MovieService} from '../services/movie.service';
+import {CategoryService} from '../services/category.service';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { createBrowserHistory } from 'history';
 import {
     BrowserRouter as Router,
     Switch,
@@ -19,8 +18,8 @@ import {
 
 
 export function Filter({movies, toggleMovies}) {
-    let history = createBrowserHistory();
-    let filterParams = new URLSearchParams(history.location.search);
+    // let history = createMemoryHistory();
+    let filterParams = { };
 
     let [name, setName] = useState();
     let [category, setCategory] = useState(filterParams.get('category'));
@@ -31,10 +30,10 @@ export function Filter({movies, toggleMovies}) {
     let categories = CategoryService.getCategories();
     let match = useRouteMatch();
     const setParams = () => {
-        history.replace({
-            pathname: '',
-            search: '?' + filterParams.toString()
-        });
+        // history.replace({
+        //     pathname: '',
+        //     search: '?' + filterParams.toString()
+        // });
         toggleMovies(filterParams);
     }
     
@@ -65,10 +64,10 @@ export function Filter({movies, toggleMovies}) {
 
     const handleClean = () => {
         filterParams = new URLSearchParams('');
-        history.replace({
-            pathname: '/',
-            search: ''
-        });
+        // history.replace({
+        //     pathname: '/',
+        //     search: ''
+        // });
         setName('');
         setCategory('');
         setRating(0);

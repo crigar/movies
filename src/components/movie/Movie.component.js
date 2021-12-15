@@ -6,9 +6,9 @@ import {
     useRouteMatch,
     useParams
   } from "react-router-dom";
-  import { MoviePrev } from './../moviePrev/MoviePrev.component';
+  import { MoviePrev } from '../moviePrev/MoviePrev.component';
   import Grid from '@mui/material/Grid';
-import MovieService from './../../services/movie.service';  
+import {MovieService} from '../../services/movie.service';  
 export function Movie() {
     let { movieId } = useParams();
 
