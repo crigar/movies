@@ -9,6 +9,9 @@ import Rating from '@mui/material/Rating';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { createBrowserHistory } from 'history';
+import { useStore, useDispatch } from 'react-redux';
+import { newFilter, cleanFilter } from '../redux/actions';
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -19,6 +22,9 @@ import {
 
 
 export function Filter({movies, toggleMovies}) {
+    const store = useStore();
+    const dispatch = useDispatch();
+    
     let history = createBrowserHistory();
     let filterParams = new URLSearchParams(history.location.search);
 
@@ -30,6 +36,9 @@ export function Filter({movies, toggleMovies}) {
     let years = MovieService.getYears();
     let categories = CategoryService.getCategories();
     let match = useRouteMatch();
+
+    
+
     const setParams = () => {
         history.replace({
             pathname: '',
@@ -43,25 +52,29 @@ export function Filter({movies, toggleMovies}) {
         filterParams.set('name',value );
         setName(value);
         setParams();
+        dispatch(newFilter({ type: 'name', value }));
     }
     const handleCategory = (event) => {
-        let value = event.target.lastChild.data ? event.target.lastChild.data : '';
+        let value = event.target.lastChild?.data ? event.target.lastChild?.data : '';
         console.log(value)
         filterParams.set('category', value);
         setCategory(value);
         setParams();
+        dispatch(newFilter({ type: 'category', value }));
     }
     const handleRating = (event) => {
         let value = parseInt(event.target.value);
         filterParams.set('rating', value);
         setRating(value);
         setParams();
+        dispatch(newFilter({ type: 'rating', value }));
     }
     const handleYear = (event) => {
         let value = event.target.lastChild?.data;
         filterParams.set('year', value);
         setYear(value);
         setParams();
+        dispatch(newFilter({ type: 'year', value }));
     }
 
     const handleClean = () => {
@@ -75,6 +88,7 @@ export function Filter({movies, toggleMovies}) {
         setRating(0);
         setYear('');
         toggleMovies(filterParams);
+        dispatch(cleanFilter());
     }
     
     return (
