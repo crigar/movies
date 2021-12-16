@@ -28,10 +28,10 @@ export function Filter({movies, toggleMovies}) {
     let history = createBrowserHistory();
     let filterParams = new URLSearchParams(history.location.search);
 
-    let [name, setName] = useState();
-    let [category, setCategory] = useState(filterParams.get('category'));
-    let [rating, setRating] = useState(parseInt(filterParams.get('rating'), 10));
-    let [year, setYear] = useState(filterParams.get('year'));
+    let [name, setName] = useState(store.getState().setFilter.name);
+    let [category, setCategory] = useState(store.getState().setFilter.category);
+    let [rating, setRating] = useState(parseInt(store.getState().setFilter.rating, 10));
+    let [year, setYear] = useState(store.getState().setFilter.year);
 
     let years = MovieService.getYears();
     let categories = CategoryService.getCategories();
